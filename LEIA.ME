@@ -1,0 +1,15 @@
+ATENÇÃO!!!
+O contêiner do Elasticsearch (graylog-datanode) só funcionará adequadamente se você executar ANTES DA INSTALAÇÃO a configuração da variável de memória ‘vm.max_map_count’ de sua máquina real para o valor ‘262144’.
+Edite o arquivo: /etc/sysctl.conf
+E insira a linha:
+vm.max_map_count=262144
+Em seguida, execute um reload no systemctl:
+sudo sysctl -p
+-------------------------------------------------------
+Na primeira execução, será necessário configurar o Graylog para gerar chaves/certificados (só depois disso você poderá acessar a interface web usando http://localhost:9000).
+Para isso, verifique nos logs de seu contêiner Graylog qual a URL que deve acessar via navegador para executar a geração.
+Identifique o ‘CONTEINER ID’ do seu graylog:
+sudo docker stats
+E então use esse identificador para exibir os logs do Graylog (ao final)
+sudo docker logs CONTEINER_ID
+Identifique a URL que deve acessar para a configuração inicial do Graylog. Siga os passos da geração do certificado e ao final poderá acessar normalmente o servidor pelo navegador: http://localhost:9000
